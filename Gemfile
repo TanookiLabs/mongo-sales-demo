@@ -68,3 +68,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-selenium'
 end
+
+gem 'inky-rb', require: 'inky'
+gem 'premailer-rails'
+gem 'sass'

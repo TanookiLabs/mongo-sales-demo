@@ -27,3 +27,11 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+spec/examples.txt
+
+# TODO Comment out this rule if environment variables can be committed
+.env
+.env.development.local
+.env.local
+.env.test.local

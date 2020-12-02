@@ -15,6 +15,11 @@
 # gem 'pg'
 #
 default: &default
+  reaping_frequency: <%= ENV["DB_REAP_FREQ"] || 10 %> # https://devcenter.heroku.com/articles/concurrency-and-database-connections#bad-connections
+  connect_timeout: 1 # raises PG::ConnectionBad
+  checkout_timeout: 1 # raises ActiveRecord::ConnectionTimeoutError
+  variables:
+    statement_timeout: 10000 # manually override on a per-query basis
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide

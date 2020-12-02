@@ -39,3 +39,10 @@ spec/examples.txt
 !/tmp/.keep
 !/tmp/pids
 !/tmp/pids/.keep
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

@@ -35,3 +35,7 @@ spec/examples.txt
 .env.development.local
 .env.local
 .env.test.local
+/tmp/pids/*
+!/tmp/.keep
+!/tmp/pids
+!/tmp/pids/.keep

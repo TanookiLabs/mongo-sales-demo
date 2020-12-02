@@ -44,3 +44,27 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'sidekiq'
+gem 'haml-rails'
+gem 'sentry-raven'
+gem 'mta-settings'
+group :production do
+  gem 'rack-timeout'
+end
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'rspec_tap', require: false
+  gem 'factory_bot_rails'
+  gem 'dotenv-rails'
+end
+
+group :development do
+  gem 'letter_opener'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'capybara-selenium'
+end

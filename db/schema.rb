@@ -10,12 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_192941) do
+ActiveRecord::Schema.define(version: 2020_12_02_220725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sales_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "screen_id", null: false
+    t.integer "type", default: 0, null: false
+    t.text "content", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["screen_id"], name: "index_sales_items_on_screen_id"
+  end
+
+  create_table "screen_links", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "screen_id", null: false
+    t.json "coordinates", null: false
+    t.uuid "destination_screen_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["destination_screen_id"], name: "index_screen_links_on_destination_screen_id"
+    t.index ["screen_id"], name: "index_screen_links_on_screen_id"
+  end
+
+  create_table "screens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_id", null: false
+    t.string "title", null: false
+    t.string "image_url", null: false
+    t.boolean "root", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_screens_on_project_id"
+  end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.citext "email", default: "", null: false
@@ -32,4 +67,8 @@ ActiveRecord::Schema.define(version: 2020_12_02_192941) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "sales_items", "screens"
+  add_foreign_key "screen_links", "screens"
+  add_foreign_key "screen_links", "screens", column: "destination_screen_id"
+  add_foreign_key "screens", "projects"
 end

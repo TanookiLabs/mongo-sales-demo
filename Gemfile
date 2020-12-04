@@ -42,6 +42,10 @@ gem 'sass'
 
 gem 'devise'
 gem 'simple_form'
+gem 'pundit'
+
+gem 'filestack-rails'
+gem 'draper'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.

@@ -33,5 +33,9 @@ module MongoSalesdemo
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.time_zone = 'Eastern Time (US & Canada)'
+
+    config.filestack_rails.api_key = ENV['FILESTACK_API_KEY']
   end
 end

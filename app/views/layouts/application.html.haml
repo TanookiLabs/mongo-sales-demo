@@ -5,7 +5,17 @@
     %title Mongo Salesdemo
     = csrf_meta_tags
     = csp_meta_tag
+
+    - if ENV['FILESTACK_API_KEY'].present?
+      = filestack_js_include_tag
+      = filestack_js_init_tag
+
+    - if @no_cache
+      %meta{ name: "turbolinks-cache-control", content: "no-cache" }
+
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    = yield
+    %main
+      %div{ class: ("container" unless @full_width) }
+        = content_for?(:content) ? yield(:content) : yield

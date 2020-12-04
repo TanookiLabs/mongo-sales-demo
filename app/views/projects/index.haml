@@ -1,0 +1,3 @@
+%ul
+  - @projects.order(:title).each do |project|
+    = link_to project.title, project_path(project)

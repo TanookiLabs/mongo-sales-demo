@@ -1,1 +1,17 @@
 @import "bootstrap/scss/bootstrap";
+@import "admin";
+
+.m-screen {
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+
+  .m-screen-link {
+    opacity: 0.3;
+    background-color: blue;
+    position: absolute;
+    cursor: pointer;
+  }
+}

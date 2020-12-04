@@ -1,0 +1,21 @@
+- @full_width = true
+
+.m-admin-link-editor{ data: { controller: 'link-editor' } }
+  %img{ src: @screen.image_url }
+  - @screen.links.find_each do |link|
+    = render partial: 'link', locals: { link: link }
+
+  .m-admin-link-editor-link{ style: 'display: none', data: { target: 'link-editor.placeholder' } }
+
+  .modal{ tabindex: -1, role: 'dialog', data: { target: 'link-editor.modal' } }
+    .modal-dialog{ role: 'document' }
+      .modal-content
+        .modal-body
+          = form_tag admin_screen_screen_links_path(@screen) do
+            = select_tag :screen, options_from_collection_for_select(@screen.project.screens.where.not(id: @screen.id).order(:title), 'id', 'title'),class: 'form-control', data: { target: 'link-editor.screenSelect' }
+            = hidden_field_tag :top
+            = hidden_field_tag :bottom
+            = hidden_field_tag :left
+            = hidden_field_tag :right
+        .modal-footer
+          %button.btn.btn-primary{ data: { action: 'click->link-editor#onSubmit' } } Save Hotlink

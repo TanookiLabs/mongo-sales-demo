@@ -1,0 +1,7 @@
+- @full_width = true
+- @no_cache = true
+
+.m-screen
+  %img{ src: @screen.image_url }
+  - @screen.links.find_each do |link|
+    %a.m-screen-link{ href: screen_path(link.destination_screen), style: "top: #{link.coordinates['top']}; bottom: #{link.coordinates['bottom']}; left: #{link.coordinates['left']}; right: #{link.coordinates['right']};" }

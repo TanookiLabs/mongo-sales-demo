@@ -1,0 +1,4 @@
+%p Select a project to view:
+%ul
+  - @projects.each do |project|
+    %li= link_to project.title, admin_project_path(project)

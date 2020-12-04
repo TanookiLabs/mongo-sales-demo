@@ -1,0 +1,11 @@
+= simple_form_for @screen.persisted? ? [:admin, @screen] : [:admin, @screen.project, @screen], data: { controller: 'screen-form' } do |f|
+  .row
+    .col-6
+      = f.input :title
+      = f.input :root
+    .col-6
+      = f.hidden_field :image_url, data: { target: 'screen-form.imageUrl' }
+      %img.m-admin-screen-img{ src: @screen.image_url, style: ('display: none' if @screen.image_url.blank?), data: { target: 'screen-form.img' } }
+      %button.btn.btn-primary{ data: { action: 'screen-form#onUploadImage' } } Upload Image
+
+  = f.submit class: 'btn btn-primary'

@@ -1,0 +1,9 @@
+%div{ data: { controller: 'narrator' } }
+  .form-group
+    %label Jump to Screen:
+    = select_tag :screen, options_from_collection_for_select(@project.screens.order(root: :desc, title: :asc).decorate, 'url', 'title'), include_blank: true, class: 'form-control', data: { action: 'narrator#onJump' }
+
+  %hr
+
+  %div{ data: { target: 'narrator.content' } }
+    %button.btn.btn-primary{ style: 'display: none', data: { url: screen_url(@project.root_screen), action: 'narrator#onLaunch', target: 'narrator.launchButton' } } Open Project Window

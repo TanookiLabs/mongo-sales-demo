@@ -42,6 +42,11 @@ a {
   }
 }
 
+.form-control:focus {
+  border-color: $mongo-green;
+  box-shadow: 0 0 0 0.2rem rgba($mongo-green, 0.25);
+}
+
 .turbolinks-progress-bar {
   background-color: $mongo-green;
 }

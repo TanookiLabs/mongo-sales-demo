@@ -1,6 +1,16 @@
 @import "bootstrap/scss/bootstrap";
 @import "admin";
 
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main > .container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .m-screen {
   position: relative;
 

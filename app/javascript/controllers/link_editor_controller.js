@@ -1,13 +1,15 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ 'placeholder', 'modal', 'screenSelect' ]
+  static targets = [ 'placeholder', 'modal', 'screenSelect', 'submitButton', 'externalUrl' ]
 
   initialize() {
     this.$el = $(this.element);
-    this.$placeholder = $(this.placeholderTarget);
-    this.$modal = $(this.modalTarget);
-    this.$screenSelect = $(this.screenSelectTarget);
+
+    this.constructor.targets.forEach(target => {
+      this[`$${target}`] = $(this[`${target}Target`]);
+    });
+
     this.$form = this.$modal.find('form');
 
     this.$modal.on('hide.bs.modal', () => {
@@ -37,11 +39,17 @@ export default class extends Controller {
       }
     });
     this.$el.on('mouseup', (e) => {
-      if (this.hasLinkBoxArea) {
+      if (this.hasLinkBoxArea && !this.$modal.is(':visible')) {
         this.$form.find('input[name=left]').val(this.linkBoxPercentages.left);
         this.$form.find('input[name=top]').val(this.linkBoxPercentages.top);
         this.$form.find('input[name=right]').val(this.linkBoxPercentages.right);
         this.$form.find('input[name=bottom]').val(this.linkBoxPercentages.bottom);
+
+        // reset the form
+        this.$screenSelect.val('');
+        this.$externalUrl.val('');
+        this.updateControlState();
+
         this.$modal.modal('show');
       } else {
         this.$placeholder.hide();
@@ -64,6 +72,11 @@ export default class extends Controller {
       right: `${100 - (this.linkBox[2] / this.$el.width() * 100)}%`,
       bottom: `${100 - (this.linkBox[3] / this.$el.height() * 100)}%`
     }
+  }
+
+  updateControlState() {
+    this.$submitButton.prop('disabled', this.$screenSelect.val() == '' && this.$externalUrl.val() == '')
+    this.$externalUrl.toggle(this.$screenSelect.val() == '');
   }
 
   get hasLinkBoxArea() {

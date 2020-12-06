@@ -1,7 +1,7 @@
 class SalesItem < ApplicationRecord
   belongs_to :screen, inverse_of: :sales_items
 
-  enum type: %i(info)
+  enum item_type: %i(info)
 
-  validates :content, presence: true
+  validates :topic, :content, presence: true
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_220725) do
+ActiveRecord::Schema.define(version: 2020_12_06_194218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -25,19 +25,21 @@ ActiveRecord::Schema.define(version: 2020_12_02_220725) do
 
   create_table "sales_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "screen_id", null: false
-    t.integer "type", default: 0, null: false
+    t.integer "item_type", default: 0, null: false
     t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "topic", null: false
     t.index ["screen_id"], name: "index_sales_items_on_screen_id"
   end
 
   create_table "screen_links", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "screen_id", null: false
     t.json "coordinates", null: false
-    t.uuid "destination_screen_id", null: false
+    t.uuid "destination_screen_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "external_url"
     t.index ["destination_screen_id"], name: "index_screen_links_on_destination_screen_id"
     t.index ["screen_id"], name: "index_screen_links_on_screen_id"
   end

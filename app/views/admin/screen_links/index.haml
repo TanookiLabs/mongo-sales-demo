@@ -12,10 +12,11 @@
       .modal-content
         .modal-body
           = form_tag admin_screen_screen_links_path(@screen) do
-            = select_tag :screen, options_from_collection_for_select(@screen.project.screens.where.not(id: @screen.id).order(:title), 'id', 'title'),class: 'form-control', data: { target: 'link-editor.screenSelect' }
             = hidden_field_tag :top
             = hidden_field_tag :bottom
             = hidden_field_tag :left
             = hidden_field_tag :right
+            = select_tag :screen, '<option value="">[External URL]</option>'.html_safe + options_from_collection_for_select(@screen.project.screens.where.not(id: @screen.id).order(:title), 'id', 'title'), class: 'form-control', data: { target: 'link-editor.screenSelect', action: 'change->link-editor#updateControlState' }
+            = text_field_tag :external_url, '', class: 'form-control mt-3', placeholder: 'Enter external URL...', data: { target: 'link-editor.externalUrl', action: 'change->link-editor#updateControlState keyup->link-editor#updateControlState' }
         .modal-footer
-          %button.btn.btn-primary{ data: { action: 'click->link-editor#onSubmit' } } Save Hotlink
+          %button.btn.btn-primary{ data: { target: 'link-editor.submitButton', action: 'click->link-editor#onSubmit' } } Save Hotlink

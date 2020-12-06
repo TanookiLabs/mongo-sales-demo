@@ -6,10 +6,19 @@ module Admin
     def index; end
 
     def create
-      link = @screen.links.create(
+      link = @screen.links.build(
         destination_screen_id: params['screen'],
         coordinates: { top: params['top'], bottom: params['bottom'], left: params['left'], right: params['right'] }
       )
+
+      if params['screen'].present?
+        link.destination_screen_id = params['screen']
+      else
+        link.external_url = params['external_url']
+      end
+
+      link.save!
+
       render partial: 'link', locals: { link: link }
     end
 

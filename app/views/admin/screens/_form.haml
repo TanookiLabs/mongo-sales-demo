@@ -1,11 +1,29 @@
-= simple_form_for @screen.persisted? ? [:admin, @screen] : [:admin, @screen.project, @screen], data: { controller: 'screen-form' } do |f|
-  .row
-    .col-6
-      = f.input :title
-      = f.input :root
-    .col-6
-      = f.hidden_field :image_url, data: { target: 'screen-form.imageUrl' }
-      %img.m-admin-screen-img{ src: @screen.image_url, style: ('display: none' if @screen.image_url.blank?), data: { target: 'screen-form.img' } }
-      %button.btn.btn-primary{ data: { action: 'screen-form#onUploadImage' } } Upload Image
+%div{ data: { controller: 'screen-edit' } }
+  %div{ style: 'display: none', data: { target: 'screen-edit.emptySalesItem' } }
+    = simple_fields_for 'screen[sales_items_attributes][]', SalesItem.new do |ff|
+      = render partial: 'sales_item_fields', locals: { ff: ff }
+  = simple_form_for @screen.persisted? ? [:admin, @screen] : [:admin, @screen.project, @screen] do |f|
+    .row
+      .col-6
+        = f.input :title
+        = f.input :root
 
-  = f.submit class: 'btn btn-primary'
+        %hr
+
+        %h4 Sales Info
+
+        %div{ data: { target: 'screen-edit.salesItemsList' } }
+          = f.simple_fields_for :sales_items, include_id: false do |ff|
+            .m-admin-screen-sales-item{ data: { target: 'screen-edit.salesItem', controller: 'sales-item-edit' } }
+              = render partial: 'sales_item_fields', locals: { ff: ff }
+
+        .btn.btn-primary{ data: { action: 'click->screen-edit#onAddSalesItem' } } Add Item
+
+      .col-6
+        = f.hidden_field :image_url, data: { target: 'screen-edit.imageUrl' }
+        %img.m-admin-screen-img{ src: @screen.image_url, style: ('display: none' if @screen.image_url.blank?), data: { target: 'screen-edit.img' } }
+        %button.btn.btn-primary{ data: { action: 'screen-edit#onUploadImage' } } Upload Image
+
+    %hr
+
+    %button.btn.btn-primary{ data: { action: 'screen-edit#onSave' } }= "#{@screen.persisted? ? 'Update' : 'Create'} Screen"

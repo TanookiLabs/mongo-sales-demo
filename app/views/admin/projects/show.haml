@@ -9,6 +9,7 @@
         %th Screen
         %th # Links Out
         %th # Links In
+        %th # Items
         %th{ colspan: 3 } Actions
     %tbody
       - @project.screens.order(:title).each do |screen|
@@ -19,6 +20,7 @@
               (#{content_tag(:b, 'Root')})
           %td= screen.links.count
           %td= screen.incoming_links.count
+          %td= screen.sales_items.count
           %td= link_to 'Edit Details', edit_admin_screen_path(screen)
           - if @project.screens.count >= 2
             %td= link_to 'Edit Hotlinks', admin_screen_screen_links_path(screen)

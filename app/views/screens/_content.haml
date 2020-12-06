@@ -1,1 +1,8 @@
-Currently on: #{@screen.title}
+%p
+  %b Viewing:
+  = @screen.title
+
+- @screen.sales_items.each do |sales_item|
+  %hr
+  %h5= sales_item.topic
+  %p= sales_item.content

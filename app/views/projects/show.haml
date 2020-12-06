@@ -5,5 +5,8 @@
 
   %hr
 
-  %div{ data: { target: 'narrator.content' } }
-    %button.btn.btn-primary{ style: 'display: none', data: { url: screen_url(@project.root_screen), action: 'narrator#onLaunch', target: 'narrator.launchButton' } } Open Project Window
+  - if @project.screens.count.positive?
+    %div{ data: { target: 'narrator.content' } }
+      %button.btn.btn-default{ style: 'display: none', data: { url: screen_url(@project.root_screen), action: 'narrator#onLaunch', target: 'narrator.launchButton' } } Open Project Window
+  - else
+    %p Project has no screens defined, and cannot be launched.

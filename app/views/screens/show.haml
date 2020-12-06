@@ -1,7 +1,7 @@
 - @full_width = true
 - @no_cache = true
 
-.m-screen
+.m-screen{ data: { controller: 'screen', action: 'keydown@window->screen#onKeyDown keyup@window->screen#onKeyUp' } }
   %img{ src: @screen.image_url }
   - @screen.links.find_each do |link|
     %a.m-screen-link{ href: link.destination_screen ? screen_path(link.destination_screen) : link.external_url, style: "top: #{link.coordinates['top']}; bottom: #{link.coordinates['bottom']}; left: #{link.coordinates['left']}; right: #{link.coordinates['right']};", target: link.destination_screen ? 'mongo-narrator' : '_blank' }

@@ -1,3 +1,6 @@
+$mongo-green: #14aa52;
+$mongo-dark-green: #236b55;
+
 @import "bootstrap/scss/bootstrap";
 @import "quill/dist/quill.core";
 @import "quill/dist/quill.snow";
@@ -13,6 +16,36 @@ main > .container {
   padding-bottom: 20px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color: $mongo-dark-green;
+}
+
+.btn {
+  &.btn-default {
+    background-color: $mongo-green;
+    color: white;
+  }
+
+  &.btn-outline {
+    background-color: white;
+    border-color: $mongo-green;
+    color: $mongo-green;
+  }
+}
+
+a {
+  color: $mongo-green;
+
+  &:hover {
+    text-decoration: none;
+    color: $mongo-dark-green;
+  }
+}
+
+.turbolinks-progress-bar {
+  background-color: $mongo-green;
+}
+
 .m-screen {
   position: relative;
 
@@ -21,10 +54,14 @@ main > .container {
   }
 
   .m-screen-link {
-    opacity: 0.3;
-    background-color: blue;
+    opacity: 0;
+    background-color: $mongo-green;
     position: absolute;
     cursor: pointer;
+  }
+
+  &.m-screen-shift .m-screen-link {
+    opacity: 0.4;
   }
 }
 

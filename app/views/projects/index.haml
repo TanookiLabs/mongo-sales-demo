@@ -1,3 +1,13 @@
+%h3 MongoDB Sales Tool
+%p Select a project to view:
 %ul
   - @projects.order(:title).each do |project|
-    = link_to project.title, project_path(project)
+    %li= link_to project.title, project_path(project)
+
+%hr
+
+- if current_user
+  - if current_user.superuser?
+    = link_to 'Admin', admin_projects_path
+    %br
+  = link_to 'Sign Out', destroy_user_session_path, method: :delete

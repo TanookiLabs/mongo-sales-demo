@@ -17,13 +17,13 @@
             .m-admin-screen-sales-item{ data: { target: 'screen-edit.salesItem', controller: 'sales-item-edit' } }
               = render partial: 'sales_item_fields', locals: { ff: ff }
 
-        .btn.btn-primary{ data: { action: 'click->screen-edit#onAddSalesItem' } } Add Item
+        .btn.btn-default{ data: { action: 'click->screen-edit#onAddSalesItem' } } Add Item
 
       .col-6
         = f.hidden_field :image_url, data: { target: 'screen-edit.imageUrl' }
         %img.m-admin-screen-img{ src: @screen.image_url, style: ('display: none' if @screen.image_url.blank?), data: { target: 'screen-edit.img' } }
-        %button.btn.btn-primary{ data: { action: 'screen-edit#onUploadImage' } } Upload Image
+        %button.btn.btn-default{ data: { action: 'screen-edit#onUploadImage' } } Upload Image
 
     %hr
 
-    %button.btn.btn-primary{ data: { action: 'screen-edit#onSave' } }= "#{@screen.persisted? ? 'Update' : 'Create'} Screen"
+    %button.btn.btn-default{ data: { action: 'screen-edit#onSave' } }= "#{@screen.persisted? ? 'Update' : 'Create'} Screen"

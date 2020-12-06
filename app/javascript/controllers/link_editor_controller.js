@@ -95,10 +95,12 @@ export default class extends Controller {
   onDelete(e) {
     e.stopPropagation();
 
-    $.ajax({
-      method: 'DELETE',
-      url: $(e.target).data('url')
-    });
-    $(e.target).remove();
+    if (confirm('Remove this hotlink?')) {
+      $.ajax({
+        method: 'DELETE',
+        url: $(e.target).data('url')
+      });
+      $(e.target).remove();
+    }
   }
 }

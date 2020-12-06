@@ -8,7 +8,6 @@ export default class extends Controller {
     this.windowId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     this.subscription = consumer.subscriptions.create('NarratorChannel', {
       connected: () => {
-        console.log('connected');
         $(this.launchButtonTarget).show()
       },
       received: (data) => {

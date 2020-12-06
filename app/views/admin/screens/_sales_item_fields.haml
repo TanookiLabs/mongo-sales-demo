@@ -1,4 +1,6 @@
 = ff.hidden_field :id
-= ff.input :topic
-= ff.input :content
+= ff.input :topic, label: false, placeholder: 'Enter topic...'
+.form-group.k-admin-rich-text-editor{ data: { controller: 'rich-text-editor', placeholder: 'Enter content...' } }
+  = ff.hidden_field :content
+  %div{ data: { target: 'rich-text-editor.container' } }= rich_text(ff.object.content)
 %button.btn.btn-danger.btn-sm{ data: { action: 'sales-item-edit#onRemove' } } Remove

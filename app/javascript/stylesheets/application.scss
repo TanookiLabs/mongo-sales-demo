@@ -1,4 +1,6 @@
 @import "bootstrap/scss/bootstrap";
+@import "quill/dist/quill.core";
+@import "quill/dist/quill.snow";
 @import "admin";
 
 body {
@@ -23,5 +25,11 @@ main > .container {
     background-color: blue;
     position: absolute;
     cursor: pointer;
+  }
+}
+
+.m-rich-text {
+  p {
+    margin-bottom: 0;
   }
 }

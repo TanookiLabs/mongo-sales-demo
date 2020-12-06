@@ -25,7 +25,11 @@ export default class extends Controller {
       const fieldPrefix = `screen[sales_items_attributes[${i}]`
       $(v).find('input,textarea').each((i, el) => {
         const $el = $(el);
-         $el.attr('name', $el.attr('name').replace(/screen\[sales_items_attributes\]\[\d?\]/, fieldPrefix));
+        if ($el.data('link') == 'https://quilljs.com' || $el.hasClass('ql-image')) {
+          $el.remove();
+        } else {
+          $el.attr('name', $el.attr('name').replace(/screen\[sales_items_attributes\]\[\d?\]/, fieldPrefix));
+        }
       });
     }
 

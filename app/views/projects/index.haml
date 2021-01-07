@@ -4,8 +4,6 @@
   - @projects.order(:title).each do |project|
     %li= link_to project.title, project_path(project)
 
-%hr
-
 - if current_user
   - if current_user.superuser?
     = link_to 'Admin', admin_projects_path

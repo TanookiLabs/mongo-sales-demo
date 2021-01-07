@@ -1,12 +1,32 @@
-%div{ data: { controller: 'narrator' } }
-  .form-group
+- @no_cache = true
+
+.m-narrator{ data: { controller: 'narrator' } }
+  .form-group.m-narrator-jump
     %label Jump to Screen:
     = select_tag :screen, options_from_collection_for_select(@project.screens.order(root: :desc, title: :asc).decorate, 'url', 'title'), include_blank: true, class: 'form-control', data: { action: 'narrator#onJump' }
 
-  %hr
+    %hr
 
-  - if @project.screens.count.positive?
-    %div{ data: { target: 'narrator.content' } }
-      %button.btn.btn-default{ style: 'display: none', data: { url: screen_url(@project.root_screen), action: 'narrator#onLaunch', target: 'narrator.launchButton' } } Open Project Window
-  - else
-    %p Project has no screens defined, and cannot be launched.
+  %div{ data: { target: 'narrator.content' } }
+    - if @project.screens.count.positive?
+      %button.btn.btn-default{ style: 'display: none', data: { url: screen_url(@project.root_screen), action: 'narrator#onLaunchDemo', target: 'narrator.launchButton' } }
+        - if @demo_session.nil?
+          Start Demo Session
+        - else
+          Continue Demo Session
+      %button.btn.btn-outline{ style: 'display: none', data: { url: screen_url(@project.root_screen), action: 'narrator#onLaunch', target: 'narrator.launchButton' } } Launch (no session)
+    - else
+      %p Project has no screens defined, and cannot be launched.
+
+    - if current_user.demo_sessions.where(project: @project).any?
+      %hr
+      %h4 Previous Demo Sessions
+
+      %ul.list-unstyled
+        - current_user.demo_sessions.where(project: @project).order(:created_at).each do |session|
+          %li
+            = link_to "#{l(session.created_at)} - #{session.closed_at.strftime("%-l:%M%P")}", demo_session_path(session)
+            (#{pluralize(session.notes.count, 'note')})
+
+    %hr
+    = link_to 'Back to Projects Home', root_path

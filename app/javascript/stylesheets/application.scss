@@ -9,6 +9,7 @@ $mongo-dark-green: #236b55;
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
 main > .container {
@@ -73,5 +74,20 @@ a {
 .m-rich-text {
   p {
     margin-bottom: 0;
+  }
+}
+
+.m-narrator {
+  .m-screen-session-content,
+  .m-narrator-jump {
+    display: none;
+  }
+
+  &.with-session .m-screen-session-content {
+    display: block;
+  }
+
+  &.launched .m-narrator-jump {
+    display: block;
   }
 }

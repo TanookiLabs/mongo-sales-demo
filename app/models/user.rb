@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :demo_sessions, inverse_of: :user, dependent: :nullify
+
   enum role: { user: 0, admin: 1, developer: 2 }
 
   validates :role, :first_name, :last_name, :email, presence: true

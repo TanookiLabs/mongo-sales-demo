@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   end
 
   resources :projects, only: [:index, :show]
-  resources :screens, only: [:show]
+  resources :screens, only: [:show] do
+    post :notes, on: :member
+  end
+
+  resources :demo_sessions, path: 'session', only: [:show]
+  get 'sessions/:id/complete', to: 'demo_sessions#complete', as: 'complete_session'
 
   root to: 'projects#index'
 end

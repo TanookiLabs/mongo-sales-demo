@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params['id'])
-    authorize(@project)
+    @project = authorize(Project.find(params['id']))
+    @demo_session = @project.demo_sessions.active.where(user: current_user).first
   end
 end

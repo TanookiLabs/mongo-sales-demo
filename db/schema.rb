@@ -10,12 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_194218) do
+ActiveRecord::Schema.define(version: 2021_01_06_201406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "demo_session_notes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "demo_session_id", null: false
+    t.uuid "screen_id"
+    t.string "title", null: false
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["demo_session_id"], name: "index_demo_session_notes_on_demo_session_id"
+    t.index ["screen_id"], name: "index_demo_session_notes_on_screen_id"
+  end
+
+  create_table "demo_sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_id", null: false
+    t.uuid "user_id"
+    t.datetime "ended_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_demo_sessions_on_project_id"
+    t.index ["user_id"], name: "index_demo_sessions_on_user_id"
+  end
 
   create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title", null: false
@@ -69,6 +90,10 @@ ActiveRecord::Schema.define(version: 2020_12_06_194218) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "demo_session_notes", "demo_sessions"
+  add_foreign_key "demo_session_notes", "screens"
+  add_foreign_key "demo_sessions", "projects"
+  add_foreign_key "demo_sessions", "users"
   add_foreign_key "sales_items", "screens"
   add_foreign_key "screen_links", "screens"
   add_foreign_key "screen_links", "screens", column: "destination_screen_id"

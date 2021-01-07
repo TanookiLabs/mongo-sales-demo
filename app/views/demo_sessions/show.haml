@@ -1,0 +1,21 @@
+= link_to 'Back to Project', project_path(@demo_session.project)
+
+%h3.mt-2 Demo Session Record
+
+%ul.list-unstyled
+  %li
+    %strong Session started:
+    #{l(@demo_session.created_at)}
+  %li
+    %strong Session ended:
+    #{l(@demo_session.ended_at || @demo_session.updated_at)}
+
+%h4 Notes
+
+- if @demo_session.notes.any?
+  - @demo_session.notes.order(:created_at).each do |note|
+    %strong Screen: #{note.title}
+    %br
+    %p= note.content
+- else
+  %p No notes were taken during this session.

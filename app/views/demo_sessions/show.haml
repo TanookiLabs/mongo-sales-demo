@@ -16,6 +16,6 @@
   - @demo_session.notes.order(:created_at).each do |note|
     %strong Screen: #{note.title}
     %br
-    %p= note.content
+    = simple_format(note.content)
 - else
   %p No notes were taken during this session.

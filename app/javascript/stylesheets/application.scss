@@ -34,6 +34,18 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.alert {
+  border-color: $mongo-green;
+  background-color: lighten($mongo-dark-green, 60);
+  color: $mongo-green;
+
+  .close {
+    color: $mongo-dark-green;
+    position: relative;
+    top: -2px;
+  }
+}
+
 a {
   color: $mongo-green;
 
@@ -78,13 +90,17 @@ a {
 }
 
 .m-narrator {
+  .m-narrator-session-details,
   .m-screen-session-content,
   .m-narrator-jump {
     display: none;
   }
 
-  &.with-session .m-screen-session-content {
-    display: block;
+  &.with-session {
+    .m-narrator-session-details,
+    .m-screen-session-content {
+      display: block;
+    }
   }
 
   &.launched .m-narrator-jump {

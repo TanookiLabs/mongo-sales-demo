@@ -1,0 +1,3 @@
+= simple_form_for [:admin, @project] do |f|
+  = f.input :title
+  = f.submit @project.persisted? ? 'Save Changes' : 'Create Project', class: 'btn btn-default'

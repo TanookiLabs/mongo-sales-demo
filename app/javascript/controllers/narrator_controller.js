@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import consumer from '../channels/consumer'
 
 export default class extends Controller {
-  static targets = [ 'content', 'launchButton', 'notesField' ]
+  static targets = [ 'content', 'launchButton', 'notesField', 'sessionTitleInput', 'sessionTitle' ]
 
   connect() {
     this.windowId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -23,8 +23,15 @@ export default class extends Controller {
   }
 
   onLaunchDemo(e) {
-    $(this.element).addClass('with-session').addClass('launched');
-    this.openScreen(e.target.dataset.url);
+    this.sessionTitle = $(this.sessionTitleInputTarget).val()
+    if (this.sessionTitle === undefined || this.sessionTitle === '') {
+      alert('Please enter a title for this session.')
+    } else {
+      this.sessionStart = Date.now()
+      $(this.sessionTitleTarget).html(this.sessionTitle);
+      $(this.element).addClass('with-session').addClass('launched');
+      this.openScreen(e.target.dataset.url);
+    }
   }
 
   onLaunch(e) {
@@ -44,17 +51,22 @@ export default class extends Controller {
   }
 
   onEndDemo(e) {
-    $(e.target).html('Saving...');
-    this.saveNotes(e.target.dataset.url);
+    if (confirm('Are you sure you want to end this demo?')) {
+      $(e.target).html('Saving...');
+      this.saveNotes(e.target.dataset.url);
+    }
   }
 
   saveNotes(redirect=null) {
     clearTimeout(this.debounceNotes);
     this.debounceNotes = setTimeout(() => {
-      console.log('here');
       $.post({
         url: this.notesFieldTarget.dataset.url,
-        data: { notes: $(this.notesFieldTarget).val() },
+        data: {
+          notes: $(this.notesFieldTarget).val(),
+          title: this.sessionTitle,
+          start: this.sessionStart
+        },
         complete: () => {
           if (redirect !== null) {
             window.location = redirect;

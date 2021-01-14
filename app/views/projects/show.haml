@@ -1,6 +1,13 @@
 - @no_cache = true
 
 .m-narrator{ data: { controller: 'narrator' } }
+  .m-narrator-session-details
+    %p
+      %strong Current demo session:
+      %span{ data: { target: 'narrator.sessionTitle' } }
+    .btn.btn-default.btn-sm.mb-2{ style: 'background-color: maroon', data: { action: 'click->narrator#onEndDemo', url: complete_session_path(@project) } } End Demo & View Notes Summary
+    %hr
+
   .form-group.m-narrator-jump
     %label Jump to Screen:
     = select_tag :screen, options_from_collection_for_select(@project.screens.order(root: :desc, title: :asc).decorate, 'url', 'title'), include_blank: true, class: 'form-control', data: { action: 'narrator#onJump' }
@@ -9,6 +16,7 @@
 
   %div{ data: { target: 'narrator.content' } }
     - if @project.screens.count.positive?
+      = text_field_tag :session_name, @demo_session&.title, placeholder: 'Enter session title...', disabled: @demo_session.present?, class: 'form-control align-middle d-inline-block', style: 'width: 250px', data: { target: 'narrator.sessionTitleInput' }
       %button.btn.btn-default{ style: 'display: none', data: { url: screen_url(@project.root_screen), action: 'narrator#onLaunchDemo', target: 'narrator.launchButton' } }
         - if @demo_session.nil?
           Start Demo Session
@@ -23,10 +31,11 @@
       %h4 Previous Demo Sessions
 
       %ul.list-unstyled
-        - current_user.demo_sessions.where(project: @project).order(:created_at).each do |session|
+        - current_user.demo_sessions.where(project: @project).order(created_at: :desc).each do |session|
           %li
-            = link_to "#{l(session.created_at)} - #{session.closed_at.strftime("%-l:%M%P")}", demo_session_path(session)
-            (#{pluralize(session.notes.count, 'note')})
+            = link_to session.title, demo_session_path(session)
+            %span{ style: 'font-size: 14px' }
+              (#{l(session.created_at)} - #{session.closed_at.strftime("%-l:%M%P")}, #{pluralize(session.notes.count, 'note')})
 
     %hr
     = link_to 'Back to Projects Home', root_path

@@ -7,7 +7,7 @@ class ScreensController < ApplicationController
   end
 
   def notes
-    @demo_session = current_user.demo_sessions.create(project: @screen.project) if @demo_session.nil?
+    @demo_session = current_user.demo_sessions.create(project: @screen.project, title: params['title'].presence || '[untitled]', created_at: params['start'].present? ? Time.at(params['start'].to_i / 1000) : DateTime.now) if @demo_session.nil?
     @note = @demo_session.notes.build(screen: @screen, title: @screen.title) if @note.nil?
     authorize(@note, :update?)
     if @note.content != params['notes'] && (params['notes'].present? || @note.persisted?)

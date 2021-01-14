@@ -47,6 +47,8 @@ gem 'pundit'
 gem 'filestack-rails'
 gem 'draper'
 
+gem 'deep_cloneable'
+
 gem 'lograge'
 
 group :development do

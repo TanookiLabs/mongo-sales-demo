@@ -1,7 +1,12 @@
 - @no_cache = true
 
-%h4 Project Screens
+= link_to 'Back to Projects', admin_projects_path
 
+%h4.mt-3 Edit Project
+
+= render partial: 'admin/projects/form'
+
+%hr
 - if @project.screens.any?
   %table.table.table-bordered
     %thead

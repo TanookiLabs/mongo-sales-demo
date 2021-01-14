@@ -2,7 +2,6 @@
 = @screen.title
 .m-screen-session-content
   = text_area_tag :notes, @note&.content, placeholder: 'Session notes...', rows: 4, class: 'form-control mt-2', data: { target: 'narrator.notesField', action: 'keyup->narrator#onNotes change->narrator#onNotes', url: notes_screen_path(@screen) }
-  .btn.btn-default.btn-sm.mt-2{ style: 'background-color: maroon', data: { action: 'click->narrator#onEndDemo', url: complete_session_path(@screen.project) } } End Demo & View Notes Summary
 
 - @screen.sales_items.each do |sales_item|
   %hr

@@ -18,4 +18,12 @@
   %body
     %main
       %div{ class: ("container" unless @full_width) }
+        - unless @full_width
+          - flash.each do |msg_type, message|
+            - if message.present?
+              .alert.alert-default.k-js-flash-alert{ role: 'alert' }
+                = message
+                %button.close{ type: 'button', data: { dismiss: 'alert', label: 'Close' } }
+                  %span{ aria: { hidden: 'true' } } &times;
+
         = content_for?(:content) ? yield(:content) : yield

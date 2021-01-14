@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
+  ActiveAdmin.routes(self)
 
   namespace :admin do
     resources :projects do

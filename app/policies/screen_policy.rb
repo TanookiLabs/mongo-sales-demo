@@ -5,4 +5,8 @@ class ScreenPolicy < ApplicationPolicy
       sales_items_attributes: [:id, :topic, :content, :_destroy]
     ]
   end
+
+  def show?
+    user.present?
+  end
 end

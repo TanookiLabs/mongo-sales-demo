@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   before_action :set_raven_context
   before_action :authenticate_user!, unless: :devise_controller?
 
-  after_action :verify_authorized, except: :index, unless: -> { devise_controller? }
-  after_action :verify_policy_scoped, only: :index, unless: -> { devise_controller? }
+  after_action :verify_authorized, except: :index, unless: -> { devise_controller? || active_admin_controller? }
+  after_action :verify_policy_scoped, only: :index, unless: -> { devise_controller? || active_admin_controller? }
 
   private
 
@@ -17,5 +17,9 @@ class ApplicationController < ActionController::Base
   def set_raven_context
     Raven.user_context(id: current_user.id) if current_user
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+  end
+
+  def active_admin_controller?
+    is_a?(ActiveAdmin::BaseController)
   end
 end

@@ -3,6 +3,10 @@ class ProjectPolicy < ApplicationPolicy
     [:title]
   end
 
+  def show?
+    user.present?
+  end
+
   def duplicate?
     create?
   end

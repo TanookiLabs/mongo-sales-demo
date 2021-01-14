@@ -48,6 +48,7 @@ gem 'filestack-rails'
 gem 'draper'
 
 gem 'deep_cloneable'
+gem 'activeadmin'
 
 gem 'lograge'
 

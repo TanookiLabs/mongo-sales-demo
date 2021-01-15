@@ -1,6 +1,13 @@
 = ff.hidden_field :id
-= ff.input :topic, label: false, placeholder: 'Enter topic...'
+= ff.hidden_field :item_type
+- if ff.object.custom?
+  = ff.input :topic, label: false, placeholder: 'Enter topic...'
+- else
+  %p.mt-2.ml-1
+    %strong Topic:
+    = ff.object.item_type_i18n
 .form-group.k-admin-rich-text-editor{ data: { controller: 'rich-text-editor', placeholder: 'Enter content...' } }
   = ff.hidden_field :content
   %div{ data: { target: 'rich-text-editor.container' } }= rich_text(ff.object.content)
-%button.btn.btn-outline.btn-sm{ data: { action: 'sales-item-edit#onRemove' } } Remove
+- if ff.object.custom?
+  %button.btn.btn-outline.btn-sm{ data: { action: 'sales-item-edit#onRemove' } } Remove

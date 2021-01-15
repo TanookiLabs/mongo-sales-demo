@@ -46,6 +46,7 @@ gem 'pundit'
 
 gem 'filestack-rails'
 gem 'draper'
+gem 'enum_help'
 
 gem 'deep_cloneable'
 gem 'activeadmin'

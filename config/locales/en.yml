@@ -33,3 +33,11 @@ en:
   time:
     formats:
       default: "%b %-d %Y, %-l:%M%P"
+
+  enums:
+    sales_item:
+      item_type:
+        pitch: Feature Pitch
+        faq: FAQ & Answers
+        questions: Discovery Questions
+        collateral: External Collateral

@@ -3,7 +3,7 @@
 .m-screen-session-content
   = text_area_tag :notes, @note&.content, placeholder: 'Session notes...', rows: 4, class: 'form-control mt-2', data: { target: 'narrator.notesField', action: 'keyup->narrator#onNotes change->narrator#onNotes', url: notes_screen_path(@screen) }
 
-- @screen.sales_items.each do |sales_item|
+- @screen.sales_items.decorate.each do |sales_item|
   %hr
-  %h5= sales_item.topic
+  %h5= sales_item.display_topic
   .m-rich-text= rich_text(sales_item.content)

@@ -33,12 +33,17 @@ module Admin
     def update_and_save!
       @screen.assign_attributes(permitted_attributes(Screen))
 
+      @screen.sales_items.each do |sales_item|
+        next if sales_item.marked_for_destruction?
+        @screen.sales_items.delete(sales_item) if sales_item.content.blank?
+      end
+
       if @screen.valid?
         ActiveRecord::Base.transaction do
           @screen.save!
           @screen.project.screens.where.not(id: @screen.id).update_all(root: false) if @screen.root?
         end
-        redirect_to admin_project_path(@screen.project)
+        redirect_to edit_admin_project_path(@screen.project)
       else
         render @screen.persisted? ? :edit : :new
       end

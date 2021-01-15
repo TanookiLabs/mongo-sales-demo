@@ -1,6 +1,6 @@
 %div{ data: { controller: 'screen-edit' } }
   %div{ style: 'display: none', data: { target: 'screen-edit.emptySalesItem' } }
-    = simple_fields_for 'screen[sales_items_attributes][]', SalesItem.new do |ff|
+    = simple_fields_for 'screen[sales_items_attributes][]', SalesItem.new(item_type: :custom) do |ff|
       = render partial: 'sales_item_fields', locals: { ff: ff }
   = simple_form_for @screen.persisted? ? [:admin, @screen] : [:admin, @screen.project, @screen] do |f|
     .row
@@ -13,7 +13,12 @@
         %h4 Sales Info
 
         %div{ data: { target: 'screen-edit.salesItemsList' } }
-          = f.simple_fields_for :sales_items, include_id: false do |ff|
+          - %i(pitch faq questions collateral).each do |item_type|
+            - sales_item = @screen.sales_items.where(item_type: item_type).first || @screen.sales_items.build(item_type: item_type)
+            = f.simple_fields_for :sales_items, sales_item, include_id: false do |ff|
+              .m-admin-screen-sales-item{ data: { target: 'screen-edit.salesItem', controller: 'sales-item-edit' } }
+                = render partial: 'sales_item_fields', locals: { ff: ff }
+          = f.simple_fields_for :sales_items, @screen.sales_items.where(item_type: :custom), include_id: false do |ff|
             .m-admin-screen-sales-item{ data: { target: 'screen-edit.salesItem', controller: 'sales-item-edit' } }
               = render partial: 'sales_item_fields', locals: { ff: ff }
 

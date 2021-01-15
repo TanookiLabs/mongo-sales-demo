@@ -3,7 +3,18 @@
 .m-screen-session-content
   = text_area_tag :notes, @note&.content, placeholder: 'Session notes...', rows: 4, class: 'form-control mt-2', data: { target: 'narrator.notesField', action: 'keyup->narrator#onNotes change->narrator#onNotes', url: notes_screen_path(@screen) }
 
-- @screen.sales_items.decorate.each do |sales_item|
-  %hr
-  %h5= sales_item.display_topic
-  .m-rich-text= rich_text(sales_item.content)
+%hr
+
+- if @screen.sales_items.any?
+  .m-narrator-sales-items.accordion#salesItemAccordion
+    - @screen.sales_items.decorate.each do |sales_item|
+      .card
+        .card-header
+          %h2.mb-0
+            %button.btn.btn-link{ type: 'button', data: { toggle: 'collapse', target: "#sales-item-#{sales_item.id}" } }
+              = sales_item.display_topic
+        %div.collapse{ id: "sales-item-#{sales_item.id}", data: { parent: '#salesItemAccordion' } }
+          .card-body
+            .m-rich-text= rich_text(sales_item.content)
+- else
+  %p No sales info has been entered for this screen.

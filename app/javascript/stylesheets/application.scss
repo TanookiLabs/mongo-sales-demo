@@ -32,6 +32,11 @@ h1, h2, h3, h4, h5, h6 {
     border-color: $mongo-green;
     color: $mongo-green;
   }
+
+  &.btn-link.focus,
+  &.btn-link:focus {
+    box-shadow: none;
+  }
 }
 
 .alert {
@@ -106,4 +111,15 @@ a {
   &.launched .m-narrator-jump {
     display: block;
   }
+
+  .m-narrator-sales-items {
+    .card-header {
+      padding: 8px;
+    }
+
+    .btn {
+      color: $mongo-green;
+    }
+  }
+
 }

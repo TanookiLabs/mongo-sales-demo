@@ -3,4 +3,12 @@
 // https://github.com/TanookiLabs/foundation-emails/blob/develop/scss/components/_typography.scss
 
 // FYI: this is from node_modules, not bundler
+
+@import "../../javascript/stylesheets/variables";
 @import "foundation-emails/scss/foundation-emails";
+@import "../../javascript/stylesheets/shared";
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}

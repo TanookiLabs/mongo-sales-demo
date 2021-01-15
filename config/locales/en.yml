@@ -33,6 +33,9 @@ en:
   time:
     formats:
       default: "%b %-d %Y, %-l:%M%P"
+  date:
+    formats:
+      short: '%Y-%m-%d'
 
   enums:
     sales_item:

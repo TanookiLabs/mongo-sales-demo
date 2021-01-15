@@ -51,6 +51,10 @@ gem 'enum_help'
 gem 'deep_cloneable'
 gem 'activeadmin'
 
+gem 'redis-namespace'
+gem 'redis-rails'
+gem 'hiredis'
+
 gem 'lograge'
 
 group :development do

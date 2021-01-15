@@ -1,0 +1,24 @@
+%h3.mt-3 Sales Session Report
+
+%ul.list-unstyled
+  %li
+    %strong Title:
+    = @demo_session.title
+  %li
+    %strong Rep:
+    = @demo_session.user.full_name
+  %li
+    %strong Date:
+    #{l(@demo_session.created_at.to_date, format: :short)}
+
+%h5 Notes
+
+- if @demo_session.notes.any?
+  - @demo_session.notes.order(:created_at).each do |note|
+    %div{ style: 'clear: both' }
+      %div{ style: 'margin-bottom: 4px; font-weight: bold' } Screen: #{note.title}
+      %img{ src: note.screen.image_url, width: 200, style: 'float: left; width: 200px; max-width: 25%; margin: 0 16px 8px 0' }
+      = simple_format(note.content)
+
+- else
+  %p No notes were taken during this session.

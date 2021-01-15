@@ -1,10 +1,9 @@
-$mongo-green: #14aa52;
-$mongo-dark-green: #236b55;
-
+@import "variables";
 @import "bootstrap/scss/bootstrap";
 @import "quill/dist/quill.core";
 @import "quill/dist/quill.snow";
 @import "admin";
+@import "shared";
 
 body {
   -webkit-font-smoothing: antialiased;
@@ -15,10 +14,6 @@ body {
 main > .container {
   padding-top: 20px;
   padding-bottom: 20px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: $mongo-dark-green;
 }
 
 .btn {

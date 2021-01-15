@@ -1,0 +1,1 @@
+= render partial: 'demo_sessions/content'

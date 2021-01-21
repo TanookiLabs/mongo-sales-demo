@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :projects do
       resources :screens, shallow: true do
-        resources :screen_links, only: [:index, :create, :destroy]
+        resources :screen_links, only: [:index, :create, :update, :destroy]
       end
 
       post :duplicate, on: :member

@@ -10,6 +10,8 @@
 }
 
 .m-admin-link-editor {
+  user-select: none;
+
   position: relative;
   img {
     width: 100%;

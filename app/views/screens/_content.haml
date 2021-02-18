@@ -1,3 +1,18 @@
+.form-group.m-narrator-jump
+  %label
+    %strong Current screen:
+  .row
+    %div{ class: current_user.superuser? ? 'col-10' : 'col-12' }
+      = select_tag :screen, options_from_collection_for_select(@screen.project.screens.order(root: :desc, title: :asc).decorate, 'url', 'title', @screen.id),class: 'form-control', data: { target: 'narrator.jumpSelect', action: 'narrator#onJump' }
+    - if current_user.superuser?
+      .col-2
+        .dropdown
+          .button.btn.btn-default.w-100.dropdown-toggle{ data: { toggle: 'dropdown' } } Edit Page
+          .dropdown-menu
+            = link_to 'Edit Details', edit_admin_screen_path(@screen), target: '_blank', class: 'dropdown-item'
+            = link_to 'Edit Hotlinks', admin_screen_screen_links_path(@screen), target: '_blank', class: 'dropdown-item'
+  %hr
+
 .m-screen-session-content
   = text_area_tag :notes, @note&.content, placeholder: 'Session notes...', rows: 4, class: 'form-control mt-2', data: { target: 'narrator.notesField', action: 'keyup->narrator#onNotes change->narrator#onNotes', url: notes_screen_path(@screen) }
 

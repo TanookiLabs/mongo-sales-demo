@@ -43,6 +43,7 @@ module Admin
           @screen.save!
           @screen.project.screens.where.not(id: @screen.id).update_all(root: false) if @screen.root?
         end
+        flash[:notice] = "Screen '#{@screen.title}' #{action_name == 'update' ? 'updated' : 'created'}."
         redirect_to edit_admin_project_path(@screen.project)
       else
         render @screen.persisted? ? :edit : :new

@@ -8,12 +8,6 @@
     .btn.btn-default.btn-sm.mb-2{ style: 'background-color: maroon', data: { action: 'click->narrator#onEndDemo', url: complete_session_path(@project) } } End Demo & View Notes Summary
     %hr
 
-  .form-group.m-narrator-jump
-    %label
-      %strong Current screen:
-    = select_tag :screen, options_from_collection_for_select(@project.screens.order(root: :desc, title: :asc).decorate, 'url', 'title', @project.root_screen.id),class: 'form-control', data: { target: 'narrator.jumpSelect', action: 'narrator#onJump' }
-
-    %hr
 
   %div{ data: { target: 'narrator.content' } }
     - if @project.screens.count.positive?

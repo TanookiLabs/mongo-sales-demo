@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import consumer from '../channels/consumer'
 
 export default class extends Controller {
-  static targets = [ 'content', 'launchButton', 'notesField', 'sessionTitleInput', 'sessionTitle' ]
+  static targets = [ 'content', 'launchButton', 'notesField', 'sessionTitleInput', 'sessionTitle', 'jumpSelect' ]
 
   connect() {
     this.windowId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -11,7 +11,8 @@ export default class extends Controller {
         $(this.launchButtonTargets).show()
       },
       received: (data) => {
-        $(this.contentTarget).html(data);
+        $(this.contentTarget).html(data.content);
+        $(this.jumpSelectTarget).val(data.url);
       }
     });
 
@@ -40,10 +41,7 @@ export default class extends Controller {
   }
 
   onJump(e) {
-    const $select = $(e.target);
-    const url = $select.val();
-    $select.val('');
-    this.openScreen(url);
+    this.openScreen($(e.target).val());
   }
 
   onNotes() {

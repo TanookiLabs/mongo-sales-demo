@@ -80,6 +80,8 @@ group :test do
   gem 'capybara-selenium'
   gem 'faker'
   gem 'shoulda-matchers'
+  gem 'webmock'
+  gem 'simplecov', require: false
 end
 
 group :production do

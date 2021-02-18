@@ -3,7 +3,8 @@ class ScreensController < ApplicationController
 
   def show
     authorize(@screen)
-    NarratorChannel.broadcast_to(current_user, render_to_string(partial: 'content'))
+    @screen = @screen.decorate
+    NarratorChannel.broadcast_to(current_user, { url: @screen.url, content: render_to_string(partial: 'content') })
   end
 
   def notes

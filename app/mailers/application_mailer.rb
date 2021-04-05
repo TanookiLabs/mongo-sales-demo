@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'no-reply@tanookilabs.com'
+  default from: 'd4d-admin@tanookilabs.com'
   layout 'mailer'
 end
